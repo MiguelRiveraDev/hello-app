@@ -42,7 +42,7 @@ jobs:
         run: docker push quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
       - name: Setup OpenShift CLI (oc)
-        uses: redhat-actions/oc-login@v2
+        uses: redhat-actions/oc-login@v1.2.1
         with:
           openshift_server: "https://api.sandbox-openshift.com:6443" # URL del clúster OpenShift
           token: ${{ secrets.OPENSHIFT_TOKEN }}
