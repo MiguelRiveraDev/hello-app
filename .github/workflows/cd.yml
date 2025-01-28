@@ -24,12 +24,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Bump Version
+        id: bump_version
+        run: |
+          VERSION=$(bash scripts/bump_version.sh patch)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Build Project
         run: npm run build
-
-      - name: Set Docker Image Version
-        id: version
-        run: echo "VERSION=$(date +'%Y.%m.%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: |
