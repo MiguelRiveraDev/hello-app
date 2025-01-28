@@ -24,12 +24,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Bump Version
+        id: bump_version
+        run: |
+          VERSION=$(bash scripts/bump_version.sh patch)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Build Project
         run: npm run build
-
-      - name: Set Docker Image Version
-        id: version
-        run: echo "VERSION=$(date +'%Y.%m.%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: |
@@ -41,11 +43,12 @@ jobs:
       - name: Push Docker Image to Quay.io
         run: docker push quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
-      - name: Setup OpenShift CLI (oc)
-        uses: redhat-actions/oc-login@v1.2.1
-        with:
-          openshift_server: "https://api.sandbox-openshift.com:6443" # URL del clúster OpenShift
-          token: ${{ secrets.OPENSHIFT_TOKEN }}
+      - name: Install OpenShift CLI
+        run: |
+          sudo curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
+          tar -xvf oc.tar.gz
+          sudo mv oc /usr/local/bin/oc
+          oc version
 
       - name: Set Kubernetes Project
         run: oc project hello-world-api
