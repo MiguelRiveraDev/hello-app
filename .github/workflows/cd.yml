@@ -1,0 +1,56 @@
+name: CD Pipeline with OpenShift and Quay.io
+
+on:
+  push:
+    branches:
+      - main  # El pipeline solo se ejecuta en la rama main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: hello-world-api
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Set Docker Image Version
+        id: version
+        run: echo "VERSION=$(date +'%Y.%m.%d-%H%M%S')" >> $GITHUB_ENV
+
+      - name: Build Docker Image
+        run: |
+          docker build -t quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
+
+      - name: Login to Quay.io
+        run: echo "${{ secrets.QUAY_PASSWORD }}" | docker login quay.io -u "${{ secrets.QUAY_USERNAME }}" --password-stdin
+
+      - name: Push Docker Image to Quay.io
+        run: docker push quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+      - name: Setup OpenShift CLI (oc)
+        uses: redhat-actions/oc-login@v2
+        with:
+          openshift_server: "https://api.sandbox-openshift.com:6443" # URL del clúster OpenShift
+          token: ${{ secrets.OPENSHIFT_TOKEN }}
+
+      - name: Set Kubernetes Project
+        run: oc project hello-world-api
+
+      - name: Apply Deployment Configuration
+        run: |
+          sed -i "s|quay.io/your-repo-placeholder|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
+          oc apply -f k8s/deployment.yaml
