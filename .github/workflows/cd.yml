@@ -52,7 +52,7 @@ jobs:
 
       - name: Login to OpenShift
         run: |
-          oc login "${{ env.OPENSHIFT_API_URL }}" --token="${{ env.OPENSHIFT_TOKEN }}" --insecure-skip-tls-verify=true
+          oc login "${{ secrets.OPENSHIFT_API_URL }}" --token="${{ secrets.OPENSHIFT_TOKEN }}" --insecure-skip-tls-verify=true
 
       - name: Set Kubernetes Project
         run: |
