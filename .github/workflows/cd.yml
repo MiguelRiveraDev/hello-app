@@ -55,9 +55,8 @@ jobs:
           oc login "${{ secrets.OPENSHIFT_API_URL }}" --token="${{ secrets.OPENSHIFT_TOKEN }}" --insecure-skip-tls-verify=true
 
       - name: Set Kubernetes Project
-        run: |
-          oc new-project hello-world-api || echo "Project already exists"
-          oc project hello-world-api
+        run:  |
+          oc project miguelangel0207bcn-dev
 
       - name: Apply Deployment Configuration
         run: |
