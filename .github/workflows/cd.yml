@@ -50,8 +50,14 @@ jobs:
           sudo mv oc /usr/local/bin/oc
           oc version
 
+      - name: Login to OpenShift
+        run: |
+          oc login "https://api.sandbox-openshift.com:6443" --token="${{ secrets.OPENSHIFT_TOKEN }}" --insecure-skip-tls-verify=true
+
       - name: Set Kubernetes Project
-        run: oc project hello-world-api
+        run: |
+          oc new-project hello-world-api || echo "Project already exists"
+          oc project hello-world-api
 
       - name: Apply Deployment Configuration
         run: |
