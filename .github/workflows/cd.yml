@@ -60,5 +60,5 @@ jobs:
 
       - name: Apply Deployment Configuration
         run: |
-          sed -i "s|quay.io/your-repo-placeholder|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
+          sed -i "s|quay.io/miguelangel0207bcn/hello-world-api:1.0.0|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
           oc apply -f k8s/deployment.yaml
