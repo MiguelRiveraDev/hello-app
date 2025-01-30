@@ -94,6 +94,9 @@ jobs:
       VERSION: ${{ needs.release.outputs.version }}
       IMAGE_NAME: hello-world-api
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
       - name: Install OpenShift CLI
         run: |
           sudo curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
