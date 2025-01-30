@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.11...v1.0.12) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: rollback port ([7fffc34](https://github.com/MiguelRiveraDev/hello-app/commit/7fffc34a27fef5ec490874c325bcc5c7942b20aa))
+
 ## [1.0.11](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.10...v1.0.11) (2025-01-30)
 
 
