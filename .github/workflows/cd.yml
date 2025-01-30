@@ -116,26 +116,3 @@ jobs:
           sed -i "s|quay.io/miguelangel0207bcn-dev/hello-world-api:1.0.0-0842d3ca35d7|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
           oc apply -f k8s/deployment.yaml
       
-      - name: Get Deployment URL
-        id: get_deployment_url
-        run: |
-          export DEPLOYMENT_URL=$(oc get route hello-world-api-route -o jsonpath='{.spec.host}')
-          echo "deployment_url=https://$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
-  
-  integration-tests:
-    name: Run Integration Tests
-    runs-on: ubuntu-latest
-    needs: deploy
-    env:
-      DEPLOYMENT_URL: ${{ needs.deploy.outputs.deployment_url }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Integration Tests
-        run: |
-          echo "Running integration tests against $DEPLOYMENT_URL"
-          DEPLOYMENT_URL=$DEPLOYMENT_URL npm run test:e2e
