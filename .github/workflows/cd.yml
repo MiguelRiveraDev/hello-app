@@ -27,9 +27,6 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Run Integration Tests
-        run: npm run test:e2e
-
       - name: Save Build Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -123,7 +120,7 @@ jobs:
         id: get_deployment_url
         run: |
           export DEPLOYMENT_URL=$(oc get route hello-world-api -o jsonpath='{.spec.host}')
-          echo "deployment_url=http://$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+          echo "deployment_url=https://$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
   
   integration-tests:
     name: Run Integration Tests
