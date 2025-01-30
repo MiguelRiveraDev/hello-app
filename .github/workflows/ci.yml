@@ -1,4 +1,4 @@
-name: CI for Pull Requests to Develop
+name: CI Pipeline
 
 on:
   push:

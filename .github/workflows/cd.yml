@@ -1,4 +1,4 @@
-name: CD Pipeline with OpenShift and Quay.io
+name: CD Pipeline
 
 on:
   workflow_run:
