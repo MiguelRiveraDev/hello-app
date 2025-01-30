@@ -1,3 +1,13 @@
+## [1.0.8](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.7...v1.0.8) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: close cd.yml ([15db5a1](https://github.com/MiguelRiveraDev/hello-app/commit/15db5a11978bd6e12d65eeafc4e1d8c786ab9719))
+* :hammer: E2E test ([12e0e34](https://github.com/MiguelRiveraDev/hello-app/commit/12e0e340cdc965f37d604b965e84add46d4ca748))
+* :hammer: update npm for OC ([4d74a1b](https://github.com/MiguelRiveraDev/hello-app/commit/4d74a1b3b7ecc67699e041c71299b24e9e59edfe))
+* :hammer: updated artifact version ([ca45cc3](https://github.com/MiguelRiveraDev/hello-app/commit/ca45cc30194dcec83da70640936caf95b6552a83))
+
 ## [1.0.7](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.6...v1.0.7) (2025-01-30)
 
 
