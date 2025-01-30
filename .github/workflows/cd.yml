@@ -65,6 +65,7 @@ jobs:
         run: |
           export VERSION=$(npx semantic-release --dry-run | grep 'next release version is' | sed -E 's/.* ([[:digit:].]+)$/\1/')
           echo "version=${VERSION}-${GITHUB_SHA::12}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}-${GITHUB_SHA::12}" >> $GITHUB_ENV
       - name: Perform release
         id: perform_release
         env:
