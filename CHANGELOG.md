@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.8...v1.0.9) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: update get route ([1149e32](https://github.com/MiguelRiveraDev/hello-app/commit/1149e32f0b6ab10f2036bcffdbebf4ad2ffa5747))
+
 ## [1.0.8](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.7...v1.0.8) (2025-01-30)
 
 
