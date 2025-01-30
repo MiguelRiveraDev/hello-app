@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.10...v1.0.11) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: update port service ([02f9d18](https://github.com/MiguelRiveraDev/hello-app/commit/02f9d1827c10ec1d808beb1c83010743a104b4c3))
+
 ## [1.0.10](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.9...v1.0.10) (2025-01-30)
 
 
