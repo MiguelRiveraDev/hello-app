@@ -92,6 +92,7 @@ jobs:
     needs: release
     env:
       VERSION: ${{ needs.release.outputs.version }}
+      IMAGE_NAME: hello-world-api
     steps:
       - name: Install OpenShift CLI
         run: |
