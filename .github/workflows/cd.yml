@@ -63,11 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export VERSION=$(npx semantic-release --dry-run | grep 'The next release version is' | sed -E 's/.* ([[:digit:].]+)$/\1/')
-          if [ -z "$VERSION" ]; then
-            echo "Failed to determine version" >&2
-            exit 1
-          fi
+          export VERSION=$(npx semantic-release --dry-run | grep 'next release version is' | sed -E 's/.* ([[:digit:].]+)$/\1/')
           echo "version=${VERSION}-${GITHUB_SHA::12}" >> $GITHUB_OUTPUT
       - name: Perform release
         id: perform_release
