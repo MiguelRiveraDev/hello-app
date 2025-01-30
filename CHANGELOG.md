@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.2...v1.0.3) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: solve route ./k8s ([09c4e59](https://github.com/MiguelRiveraDev/hello-app/commit/09c4e59868ab9b54658733f8e8bf2e6f872e2164))
+
 ## [1.0.2](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.1...v1.0.2) (2025-01-30)
 
 
