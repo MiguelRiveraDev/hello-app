@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.9...v1.0.10) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: update id deploymentURL ([4401384](https://github.com/MiguelRiveraDev/hello-app/commit/4401384acc06259642015de10eca35a27c238d65))
+
 ## [1.0.9](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.8...v1.0.9) (2025-01-30)
 
 
