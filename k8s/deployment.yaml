@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hello-world-api
-          image: quay.io/miguelangel0207bcn/hello-world-api:1.0.0
+          image: quay.io/miguelangel0207bcn-dev/hello-world-api:1.0.0-0842d3ca35d7
           ports:
             - containerPort: 3000
 
