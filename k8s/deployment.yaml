@@ -43,6 +43,6 @@ spec:
     kind: Service
     name: hello-world-api-service
   port:
-    targetPort: 3000
+    targetPort: 80
   tls:
     termination: edge
