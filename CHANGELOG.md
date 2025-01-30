@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.4...v1.0.5) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: add env image_name ([4d967f3](https://github.com/MiguelRiveraDev/hello-app/commit/4d967f36793e46afb71c8506f9f07bed2aed4f81))
+
 ## [1.0.4](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.3...v1.0.4) (2025-01-30)
 
 
