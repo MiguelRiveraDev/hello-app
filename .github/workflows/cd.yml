@@ -46,6 +46,8 @@ jobs:
     needs: build
     env:
       IMAGE_NAME: hello-world-api
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -108,5 +110,5 @@ jobs:
 
       - name: Update and Apply Deployment Configuration
         run: |
-          sed -i "s|quay.io/miguelangel0207bcn-dev/hello-world-api:1.0.0-0842d3ca35d7|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" ./k8s/deployment.yaml
-          oc apply -f ./k8s/deployment.yaml
+          sed -i "s|quay.io/miguelangel0207bcn-dev/hello-world-api:1.0.0-0842d3ca35d7|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
+          oc apply -f k8s/deployment.yaml
