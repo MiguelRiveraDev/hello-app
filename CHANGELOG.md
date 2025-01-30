@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.3...v1.0.4) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: output stage release ([5e7ae46](https://github.com/MiguelRiveraDev/hello-app/commit/5e7ae46cd526959fe8ccb4db00600f3516d40f94))
+
 ## [1.0.3](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.2...v1.0.3) (2025-01-30)
 
 
