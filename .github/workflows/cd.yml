@@ -24,14 +24,19 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Bump Version
-        id: bump_version
-        run: |
-          VERSION=$(bash scripts/bump_version.sh patch)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
       - name: Build Project
         run: npm run build
+
+      - name: Run Integration Tests
+        run: npm run test:e2e 
+
+      - name: Semantic Release
+        id: semantic_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(npx semantic-release --dry-run | grep -oP '(?<=The next release version is ).*')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Build Docker Image
         run: |
@@ -60,5 +65,5 @@ jobs:
 
       - name: Apply Deployment Configuration
         run: |
-          sed -i "s|quay.io/your-repo-placeholder|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
+          sed -i "s|quay.io/miguelangel0207bcn/hello-world-api:1.0.0|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
           oc apply -f k8s/deployment.yaml
