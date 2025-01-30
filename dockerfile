@@ -1,35 +1,33 @@
 # Imagen base de Node.js
 FROM node:16
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Crear un usuario no root
+# Crear usuario no root
 RUN useradd -m appuser
 
-# Cambiar temporalmente al usuario root para instalar las dependencias
-USER root
+# Establecer el cache de npm en un directorio controlado
+ENV NPM_CONFIG_CACHE=/app/.npm
 
-# Copiar el package.json y package-lock.json para instalar las dependencias
+# Copiar archivos y dar permisos adecuados
 COPY package*.json ./
+RUN mkdir -p /app/.npm && chown -R appuser:appuser /app/.npm
 
-# Instalar las dependencias como root para evitar problemas de permisos
+# Instalar dependencias
 RUN npm install
 
-# Copiar el resto de la aplicación
+# Copiar el resto de la app
 COPY . .
 
-# Establecer permisos adecuados para el directorio de trabajo
-RUN chown -R appuser:appuser /app
+# Construir la app
+RUN npm run build
 
 # Cambiar al usuario no root
 USER appuser
 
-# Construir la aplicación
-RUN npm run build
-
-# Exponer el puerto donde se ejecuta la API
+# Exponer el puerto
 EXPOSE 3000
 
 # Comando para iniciar la aplicación
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start:prod"]
