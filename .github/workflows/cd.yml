@@ -17,9 +17,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set Node.js Version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "20.17.0"
+          node-version: "lts/*"
 
       - name: Install Dependencies
         run: npm install
@@ -38,6 +38,10 @@ jobs:
 
   release:
     name: Semantic Release & Docker Image
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     needs: build
     env:
@@ -54,13 +58,24 @@ jobs:
       - name: Install Semantic Release Dependencies
         run: npm install @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/release-notes-generator
 
-      - name: Semantic Release
-        id: semantic_release
+      - name: Obtain version
+        id: get_version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION=$(npx semantic-release --dry-run | grep -oP '(?<=The next release version is ).*')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          export VERSION=$(npx semantic-release --dry-run | grep 'The next release version is' | sed -E 's/.* ([[:digit:].]+)$/\1/')
+          if [ -z "$VERSION" ]; then
+            echo "Failed to determine version" >&2
+            exit 1
+          fi
+          echo "version=${VERSION}-${GITHUB_SHA::12}" >> $GITHUB_OUTPUT
+      - name: Perform release
+        id: perform_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+      - name: view generated version
+        run: echo "version=${{ steps.get_version.outputs.version }}"
 
       - name: Build Docker Image
         run: |
