@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.1...v1.0.2) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: enrouting deployment ([6a64531](https://github.com/MiguelRiveraDev/hello-app/commit/6a645316e180ba218e0a0ab9a3eebef5c7fb461a))
+* :hammer: solve env problem ([6b25f29](https://github.com/MiguelRiveraDev/hello-app/commit/6b25f29dac9c5164e1b677c88e088610e202a1ff))
+
 ## [1.0.1](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.0...v1.0.1) (2025-01-30)
 
 
