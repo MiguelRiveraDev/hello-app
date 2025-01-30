@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.6...v1.0.7) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: update dockerfile v2 ([db33044](https://github.com/MiguelRiveraDev/hello-app/commit/db330448af8e856ca668c88706c6744dd3a28612))
+
 ## [1.0.6](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.5...v1.0.6) (2025-01-30)
 
 
