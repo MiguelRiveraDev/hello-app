@@ -94,7 +94,7 @@ jobs:
       VERSION: ${{ needs.release.outputs.version }}
       IMAGE_NAME: hello-world-api
     outputs:
-      deployment_url: ${{ steps.get_deployment_url.outputs.deployment_url
+      deployment_url: ${{ steps.get_deployment_url.outputs.deployment_url }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
