@@ -1,25 +1,25 @@
 name: CD Pipeline with OpenShift and Quay.io
 
 on:
-  push:
-    branches:
-      - main  # El pipeline solo se ejecuta en la rama main
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
 
 jobs:
-  deploy:
+  build:
+    name: Build and Test
     runs-on: ubuntu-latest
-
     env:
       IMAGE_NAME: hello-world-api
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set Node.js version
+      - name: Set Node.js Version
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: "20.8.1"
 
       - name: Install Dependencies
         run: npm install
@@ -28,7 +28,28 @@ jobs:
         run: npm run build
 
       - name: Run Integration Tests
-        run: npm run test:e2e 
+        run: npm run test:e2e
+
+      - name: Save Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: ./dist
+
+  release:
+    name: Semantic Release & Docker Image
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      IMAGE_NAME: hello-world-api
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
 
       - name: Semantic Release
         id: semantic_release
@@ -48,6 +69,11 @@ jobs:
       - name: Push Docker Image to Quay.io
         run: docker push quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
+  deploy:
+    name: Deploy to OpenShift
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
       - name: Install OpenShift CLI
         run: |
           sudo curl -L https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz -o oc.tar.gz
@@ -60,10 +86,10 @@ jobs:
           oc login "${{ secrets.OPENSHIFT_API_URL }}" --token="${{ secrets.OPENSHIFT_TOKEN }}" --insecure-skip-tls-verify=true
 
       - name: Set Kubernetes Project
-        run:  |
+        run: |
           oc project miguelangel0207bcn-dev
 
-      - name: Apply Deployment Configuration
+      - name: Update and Apply Deployment Configuration
         run: |
           sed -i "s|quay.io/miguelangel0207bcn/hello-world-api:1.0.0|quay.io/${{ secrets.QUAY_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}|g" k8s/deployment.yaml
           oc apply -f k8s/deployment.yaml
