@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.5...v1.0.6) (2025-01-30)
+
+
+### Bug Fixes
+
+* :hammer: last update checkout code ([370830c](https://github.com/MiguelRiveraDev/hello-app/commit/370830cce5a639fbc7517aca76fb38a857d509cb))
+
 ## [1.0.5](https://github.com/MiguelRiveraDev/hello-app/compare/v1.0.4...v1.0.5) (2025-01-30)
 
 
