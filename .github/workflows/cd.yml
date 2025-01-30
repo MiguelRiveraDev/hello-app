@@ -119,7 +119,7 @@ jobs:
       - name: Get Deployment URL
         id: get_deployment_url
         run: |
-          export DEPLOYMENT_URL=$(oc get route hello-world-api -o jsonpath='{.spec.host}')
+          export DEPLOYMENT_URL=$(oc get route hello-world-api-route -o jsonpath='{.spec.host}')
           echo "deployment_url=https://$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
   
   integration-tests:
