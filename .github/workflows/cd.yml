@@ -127,7 +127,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     env:
-      DEPLOYMENT_URL: ${{ needs.deploy.outputs.deployment_url }}
+      DEPLOYMENT_URL: ${{ needs.deploy.outputs.get_deployment_url }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
